@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>여우성 · 포트폴리오</title>
+  <style>
+    /* ---------- reset & base ---------- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d1117;
+      --bg-card: #161b22;
+      --bg-card-hover: #1c2330;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --accent: #58a6ff;
+      --accent-2: #3fb950;
+      --accent-3: #d2a8ff;
+      --gradient: linear-gradient(135deg, #58a6ff 0%, #3fb950 50%, #d2a8ff 100%);
+      --radius: 12px;
+      --transition: 0.25s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--accent-3); }
+
+    /* ---------- scrollbar ---------- */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+    /* ---------- layout ---------- */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section { padding: 80px 0; border-bottom: 1px solid var(--border); }
+    section:last-of-type { border-bottom: none; }
+
+    /* ---------- navigation ---------- */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13, 17, 23, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text);
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links { display: flex; gap: 6px; list-style: none; }
+
+    .nav-links a {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: all var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      background: var(--bg-card);
+    }
+
+    /* ---------- hero ---------- */
+    .hero {
+      min-height: calc(100vh - 56px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 0;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(88, 166, 255, 0.1);
+      border: 1px solid rgba(88, 166, 255, 0.3);
+      color: var(--accent);
+      font-size: 0.8rem;
+      padding: 5px 12px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      width: fit-content;
+    }
+
+    .hero-badge .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--accent-2);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 .gradient {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin-bottom: 32px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 40px;
+    }
+
+    .hero-tags span {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all var(--transition);
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0d1117;
+    }
+
+    .btn-primary:hover {
+      background: #79b8ff;
+      color: #0d1117;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      color: var(--text);
+      border-color: var(--text-muted);
+    }
+
+    .hero-scroll-indicator {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      animation: bob 2s infinite;
+    }
+
+    .hero-scroll-indicator .arrow {
+      width: 18px;
+      height: 18px;
+      border-right: 2px solid var(--text-muted);
+      border-bottom: 2px solid var(--text-muted);
+      transform: rotate(45deg);
+    }
+
+    @keyframes bob {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ---------- section headers ---------- */
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .section-header h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .section-header .line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, var(--border), transparent);
+    }
+
+    .section-header .number {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    /* ---------- about cards ---------- */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .about-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      transition: all var(--transition);
+    }
+
+    .about-card:hover {
+      border-color: rgba(88, 166, 255, 0.3);
+      background: var(--bg-card-hover);
+    }
+
+    .about-card .label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .about-card .value {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .about-card .value.accent { color: var(--accent); }
+    .about-card .value.green { color: var(--accent-2); }
+    .about-card .value.purple { color: var(--accent-3); }
+
+    /* ---------- project card ---------- */
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all var(--transition);
+    }
+
+    .project-card:hover {
+      border-color: rgba(88, 166, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .project-card .project-header {
+      padding: 24px 28px 0;
+    }
+
+    .project-card .project-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(63, 185, 80, 0.1);
+      border: 1px solid rgba(63, 185, 80, 0.25);
+      color: var(--accent-2);
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    .project-card .project-status.in-progress {
+      background: rgba(88, 166, 255, 0.1);
+      border-color: rgba(88, 166, 255, 0.25);
+      color: var(--accent);
+    }
+
+    .project-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      margin-bottom: 8px;
+    }
+
+    .project-card .project-sub {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 16px;
+    }
+
+    .project-card .project-body {
+      padding: 16px 28px 24px;
+    }
+
+    .project-card .project-body p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+    }
+
+    .tech-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .tech-pill {
+      background: rgba(88, 166, 255, 0.07);
+      border: 1px solid rgba(88, 166, 255, 0.15);
+      color: var(--accent);
+      font-size: 0.75rem;
+      padding: 3px 10px;
+      border-radius: 5px;
+    }
+
+    /* ---------- tech stack cloud ---------- */
+    .tech-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tech-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tech-item:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(88, 166, 255, 0.05);
+    }
+
+    .tech-item .level {
+      font-size: 0.65rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    /* ---------- education / timeline ---------- */
+    .timeline {
+      position: relative;
+      padding-left: 28px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 4px;
+      bottom: 4px;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 28px;
+    }
+
+    .timeline-item:last-child { padding-bottom: 0; }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -24px;
+      top: 4px;
+      width: 11px;
+      height: 11px;
+      background: var(--accent);
+      border-radius: 50%;
+      border: 2px solid var(--bg);
+    }
+
+    .timeline-item .period {
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .timeline-item h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .timeline-item .desc {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* ---------- contact ---------- */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .contact-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+      transition: all var(--transition);
+    }
+
+    .contact-card:hover {
+      border-color: rgba(88, 166, 255, 0.3);
+    }
+
+    .contact-card .icon {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .contact-card .label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .contact-card a {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* ---------- footer ---------- */
+    footer {
+      padding: 32px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    footer .heart { color: #f85149; }
+
+    /* ---------- responsive ---------- */
+    @media (max-width: 640px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      section { padding: 48px 0; }
+      .hero { min-height: auto; padding: 40px 0; }
+    }
+
+    /* ---------- highlight animation on scroll (simple) ---------- */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ NAV ============ -->
+  <nav>
+    <div class="container">
+      <div class="nav-logo">WOOSEONG</div>
+      <ul class="nav-links">
+        <li><a href="#about">소개</a></li>
+        <li><a href="#project">프로젝트</a></li>
+        <li><a href="#skills">기술 스택</a></li>
+        <li><a href="#career">학력·경력</a></li>
+        <li><a href="#contact">연락</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="top">
+    <div class="container">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        개발 중 · 학습 중
+      </div>
+
+      <h1>
+        <span class="gradient">여우성</span><br />
+        <span style="font-size:0.55em; font-weight:500; -webkit-text-fill-color:var(--text-muted);">
+          AI 에이전트 · 제조 혁신
+        </span>
+      </h1>
+
+      <p class="hero-sub">
+        경남대학교 컴퓨터공학과 3학년.<br />
+        Claude Code를 활용해 <strong>AI팩토리 제조 에이전트</strong>를 개발하고 있습니다.
+      </p>
+
+      <div class="hero-tags">
+        <span>Claude Code</span>
+        <span>AI 에이전트</span>
+        <span>제조 팩토리</span>
+        <span>Python</span>
+        <span>소프트웨어 공학</span>
+      </div>
+
+      <div class="hero-cta">
+        <a href="#project" class="btn btn-primary">현재 프로젝트 보기 ↓</a>
+        <a href="#contact" class="btn btn-ghost">연락하기</a>
+      </div>
+    </div>
+
+    <div class="hero-scroll-indicator">
+      <span>Scroll</span>
+      <div class="arrow"></div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="number">01</span>
+        <h2>소개</h2>
+        <div class="line"></div>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-card fade-in">
+          <div class="label">소속</div>
+          <div class="value accent">경남대학교 컴퓨터공학과</div>
+          <div style="color:var(--text-muted); font-size:0.85rem; margin-top:4px;">3학년 재학 중</div>
+        </div>
+
+        <div class="about-card fade-in">
+          <div class="label">관심사</div>
+          <div class="value green">AI 에이전트 · LLM 활용</div>
+          <div style="color:var(--text-muted); font-size:0.85rem; margin-top:4px;">제조 도메인 × 에이전트 워크플로우</div>
+        </div>
+
+        <div class="about-card fade-in">
+          <div class="label">현재</div>
+          <div class="value purple">AI팩토리 제조 에이전트 개발</div>
+          <div style="color:var(--text-muted); font-size:0.85rem; margin-top:4px;">Claude Code 기반 에이전트 구축 중</div>
+        </div>
+
+        <div class="about-card fade-in">
+          <div class="label">모토</div>
+          <div class="value" style="font-size:0.9rem;">
+            배우며 만들고, 만들며 배운다
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROJECT (MAIN) ============ -->
+  <section id="project">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="number">02</span>
+        <h2>현재 프로젝트</h2>
+        <div class="line"></div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-header">
+          <div class="project-status in-progress">
+            <span>⚡</span> 진행 중 · 학습 병행
+          </div>
+          <h3>AI팩토리 제조 에이전트</h3>
+          <div class="project-sub">
+            Claude Code를 활용한 제조 환경 AI 에이전트 개발
+          </div>
+        </div>
+
+        <div class="project-body">
+          <p>
+            제조 팩토리 환경에서 활용할 수 있는 AI 에이전트를 Claude Code 기반으로 개발하고 있습니다.
+            에이전트에게 어떤 일을 맡기고, 어떤 워크플로우로 동작하게 할지 고민하며 직접 구현해보는 과정을 통해
+            에이전트 설계와 LLM 활용에 대한 이해를 쌓아가는 중입니다.
+          </p>
+          <p>
+            제조 현장은 도메인 지식이 중요한 영역이라서, 단순히 기술을 적용하는 것을 넘어
+            "어떤 문제를 에이전트에게 맡길 수 있는지"를 함께 정의하고 있습니다.
+            공부와 개발을 동시에 진행하며 시행착오를 기록하고, 배운 내용을 프로젝트에 반영하는 방식으로 진행하고 있습니다.
+          </p>
+
+          <div class="tech-pills">
+            <span class="tech-pill">Claude Code</span>
+            <span class="tech-pill">AI 에이전트</span>
+            <span class="tech-pill">LLM 활용</span>
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">제조 도메인</span>
+            <span class="tech-pill">워크플로우 설계</span>
+          </div>
+
+          <div style="margin-top:20px; padding-top:16px; border-top:1px solid var(--border);">
+            <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:6px;">현재 집중 중인 포인트</div>
+            <ul style="list-style:none; font-size:0.85rem; color:var(--text-muted);">
+              <li style="margin-bottom:4px;">→ 에이전트의 역할 범위와 워크플로우 정의</li>
+              <li style="margin-bottom:4px;">→ Claude Code를 활용한 개발 흐름 익히기</li>
+              <li style="margin-bottom:4px;">→ 제조 도메인 문제와 에이전트 해결 방식 연결</li>
+              <li style="margin-bottom:0;">→ 시행착오 기록 및 학습 내용 정리</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="number">03</span>
+        <h2>기술 스택</h2>
+        <div class="line"></div>
+      </div>
+
+      <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:24px;">
+        사용해보거나 공부 중인 기술들입니다. "학습 중" 항목은 특히 적극적으로 익히고 있는 주제입니다.
+      </p>
+
+      <div class="tech-cloud fade-in">
+        <div class="tech-item">Python <span class="level">사용</span></div>
+        <div class="tech-item">Claude Code <span class="level">활용 중</span></div>
+        <div class="tech-item">Git / GitHub <span class="level">사용</span></div>
+        <div class="tech-item">JavaScript / TypeScript <span class="level">학습 중</span></div>
+        <div class="tech-item">Linux / 터미널 <span class="level">사용</span></div>
+        <div class="tech-item">소프트웨어 공학 기초 <span class="level">학습 중</span></div>
+        <div class="tech-item">AI 에이전트 설계 <span class="level">학습 중</span></div>
+        <div class="tech-item">LLM 활용 패턴 <span class="level">학습 중</span></div>
+      </div>
+
+      <div style="margin-top:32px; padding:20px 24px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius);">
+        <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">지금 집중 중인 영역</div>
+        <div style="font-size:0.9rem; color:var(--text);">
+          Claude Code를 통한 개발 워크플로우, AI 에이전트 아키텍처, 그리고 제조 도메인에 대한 이해
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CAREER / EDUCATION ============ -->
+  <section id="career">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="number">04</span>
+        <h2>학력·활동</h2>
+        <div class="line"></div>
+      </div>
+
+      <div class="timeline fade-in">
+        <div class="timeline-item">
+          <div class="period">현재 · 3학년</div>
+          <h4>경남대학교 컴퓨터공학과</h4>
+          <div class="desc">
+            소프트웨어, 알고리즘, 시스템 등 컴퓨터공학 기초를 배우며 AI와 에이전트 분야로 관심 확장 중.
+            현재는 Claude Code를 활용한 AI팩토리 제조 에이전트 개발을 병행하고 있습니다.
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="period">진행 중</div>
+          <h4>AI팩토리 제조 에이전트 개발</h4>
+          <div class="desc">
+            Claude Code를 활용해 제조 환경에서 동작하는 AI 에이전트를 구상·개발 중.
+            에이전트에게 맡길 작업, 워크플로우, 도메인 적용 가능성을 탐색하고 있습니다.
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="period">지속</div>
+          <h4>개인 학습 · 실험</h4>
+          <div class="desc">
+            기술 스택 확장, 에이전트 관련 자료 탐색, 코드 실험 등을 꾸준히 진행 중.
+            배운 내용은 프로젝트와 포트폴리오에 반영하는 것을 목표로 하고 있습니다.
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:32px; padding:20px 24px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius);">
+        <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">추가할 수 있는 항목</div>
+        <div style="font-size:0.85rem; color:var(--text-muted);">
+          팀 프로젝트, 과제, 대외 활동, 인턴, 동아리, 수상 이력 등이 생기면 이 섹션에 추가할 수 있어요.
+          현재는 학교 수업과 개인 개발 경험을 중심으로 구성했습니다.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="number">05</span>
+        <h2>연락·링크</h2>
+        <div class="line"></div>
+      </div>
+
+      <div class="contact-grid fade-in">
+        <div class="contact-card">
+          <div class="icon">📧</div>
+          <div class="label">이메일</div>
+          <a href="mailto:wooseong@example.com">wooseong@example.com</a>
+        </div>
+
+        <div class="contact-card">
+          <div class="icon">🐙</div>
+          <div class="label">GitHub</div>
+          <a href="https://github.com/" target="_blank" rel="noopener">GitHub 프로필</a>
+        </div>
+
+        <div class="contact-card">
+          <div class="icon">💬</div>
+          <div class="label">대외 활동</div>
+          <div style="font-size:0.85rem; color:var(--text-muted);">
+            필요 시 링크 추가 가능
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:24px; padding:20px 24px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius);">
+        <div style="font-size:0.8rem; color:var(--text-muted);">
+          협업 제안, 프로젝트 질문, 기술 이야기 등 편하게 연락 주세요.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="container">
+      <div>
+        여우성 · 경남대학교 컴퓨터공학과 3학년 ·
+        AI팩토리 제조 에이전트 개발 중
+      </div>
+      <div style="margin-top:8px;">
+        Built with <span class="heart">♥</span> and Claude Code
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ SCRIPTS ============ -->
+  <script>
+    // ---- fade-in on scroll ----
+    const fadeEls = document.querySelectorAll('.fade-in');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    fadeEls.forEach((el) => observer.observe(el));
+
+    // ---- smooth nav highlight (optional) ----
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const sections = document.querySelectorAll('section[id]');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach((sec) => {
+        const top = sec.offsetTop - 120;
+        if (window.scrollY >= top) {
+          current = sec.getAttribute('id');
+        }
+      });
+      navLinks.forEach((link) => {
+        link.style.color = '';
+        if (link.getAttribute('href') === '#' + current) {
+          link.style.color = 'var(--text)';
+          link.style.background = 'var(--bg-card)';
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
